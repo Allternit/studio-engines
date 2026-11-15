@@ -1,0 +1,30 @@
+studio-engines
+Copyright 2026 Allternit LLC
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+That licence covers the engine kit (kit/), the adapters (adapters/), the tests
+and the tools in this repository, and nothing else.
+
+It does not bundle, import, link or modify any training engine. Each adapter
+writes a config file and starts the engine's own command line as a separate
+process in the engine's own virtualenv. The engines are installed unmodified at
+the versions in pins.json, each under its own licence:
+  Unsloth (unsloth)      Apache-2.0 core; unsloth_cli and studio files AGPL-3.0
+                         (treated as AGPL-3.0: process boundary only)
+  Axolotl                Apache-2.0
+  LLaMA-Factory          Apache-2.0
+  torchtune              BSD-3-Clause
+tools/spdx_gate.py fails when any file here imports the Unsloth packages or lists
+them as a dependency, or lacks a permissive SPDX header.
+
+GGUF export runs llama.cpp's convert_hf_to_gguf.py and llama-quantize (MIT) as
+separate programs when LLAMA_CPP_DIR points at them. They are not bundled.
+
+kit/studio_engine_kit/engines.json and tests/conformance/fixtures/*.json are
+copies of the Freeweights Studio contract (Allternit platform repository,
+services/studio-spec, Apache-2.0, same owner). kit/studio_engine_kit/spec-sync.json
+records the source commit and the sha256 of each copy.
+
+Unsloth, Axolotl, LLaMA-Factory, torchtune, llama.cpp, PyTorch, MLX and NVIDIA
+are names of their owners' projects and products. They are used here only to
+say which upstream program an adapter starts; no endorsement is implied.

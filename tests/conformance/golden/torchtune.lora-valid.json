@@ -1,0 +1,118 @@
+{
+  "files": {
+    "config/torchtune.yaml": {
+      "batch_size": 2,
+      "checkpointer": {
+        "_component_": "torchtune.training.FullModelHFCheckpointer",
+        "checkpoint_dir": "freeweights/qwen2.5-0.5b-instruct",
+        "checkpoint_files": [
+          "model.safetensors"
+        ],
+        "model_type": "QWEN2",
+        "output_dir": "out/train",
+        "recipe_checkpoint": null
+      },
+      "compile": false,
+      "dataset": {
+        "_component_": "torchtune.datasets.chat_dataset",
+        "conversation_column": "messages",
+        "conversation_style": "openai",
+        "data_files": "/home/studio/data/train.jsonl",
+        "source": "json"
+      },
+      "device": "cuda",
+      "dtype": "bf16",
+      "enable_activation_checkpointing": false,
+      "epochs": 1,
+      "gradient_accumulation_steps": 4,
+      "log_every_n_steps": 1,
+      "loss": {
+        "_component_": "torchtune.modules.loss.CEWithChunkedOutputLoss"
+      },
+      "lr_scheduler": {
+        "_component_": "torchtune.training.lr_schedulers.get_cosine_schedule_with_warmup",
+        "num_warmup_steps": 0
+      },
+      "metric_logger": {
+        "_component_": "torchtune.training.metric_logging.DiskLogger",
+        "log_dir": "out/train/logs"
+      },
+      "model": {
+        "_component_": "torchtune.models.qwen2_5.lora_qwen2_5_0_5b",
+        "apply_lora_to_mlp": true,
+        "lora_alpha": 32,
+        "lora_attn_modules": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "output_proj"
+        ],
+        "lora_dropout": 0.0,
+        "lora_rank": 16
+      },
+      "optimizer": {
+        "_component_": "torch.optim.AdamW",
+        "fused": true,
+        "lr": 0.0002,
+        "weight_decay": 0.0
+      },
+      "output_dir": "out/train",
+      "resume_from_checkpoint": false,
+      "save_adapter_weights_only": false,
+      "seed": 42,
+      "shuffle": true,
+      "tokenizer": {
+        "_component_": "torchtune.models.qwen2_5.qwen2_5_tokenizer",
+        "max_seq_len": 2048,
+        "merges_file": "freeweights/qwen2.5-0.5b-instruct/merges.txt",
+        "path": "freeweights/qwen2.5-0.5b-instruct/vocab.json"
+      }
+    }
+  },
+  "notes": [
+    "params.lr_scheduler 'linear' becomes cosine: the only schedule the torchtune adapter wires"
+  ],
+  "outputs": [
+    {
+      "kind": "adapter",
+      "path": "out/train/epoch_0/adapter_model.safetensors"
+    },
+    {
+      "kind": "gguf",
+      "path": "out/gguf/model-q4_k_m.gguf"
+    }
+  ],
+  "steps": [
+    {
+      "argv": [
+        "tune",
+        "run",
+        "lora_finetune_single_device",
+        "--config",
+        "config/torchtune.yaml"
+      ],
+      "name": "train"
+    },
+    {
+      "argv": [
+        "python3",
+        "$LLAMA_CPP_DIR/convert_hf_to_gguf.py",
+        "out/train/epoch_0",
+        "--outfile",
+        "out/gguf/model-f16.gguf",
+        "--outtype",
+        "f16"
+      ],
+      "name": "gguf-f16"
+    },
+    {
+      "argv": [
+        "$LLAMA_CPP_DIR/llama-quantize",
+        "out/gguf/model-f16.gguf",
+        "out/gguf/model-q4_k_m.gguf",
+        "Q4_K_M"
+      ],
+      "name": "gguf-q4_k_m"
+    }
+  ]
+}

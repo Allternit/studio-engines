@@ -1,0 +1,86 @@
+{
+  "files": {
+    "config/axolotl.yaml": {
+      "adapter": "lora",
+      "base_model": "freeweights/qwen2.5-0.5b-instruct",
+      "bf16": "auto",
+      "datasets": [
+        {
+          "ds_type": "json",
+          "field_messages": "messages",
+          "path": "/home/studio/data/train.jsonl",
+          "type": "chat_template"
+        }
+      ],
+      "gradient_accumulation_steps": 4,
+      "gradient_checkpointing": false,
+      "learning_rate": 0.0002,
+      "logging_steps": 1,
+      "lora_alpha": 32,
+      "lora_dropout": 0.0,
+      "lora_r": 16,
+      "lora_target_linear": true,
+      "lr_scheduler": "linear",
+      "micro_batch_size": 2,
+      "num_epochs": 1.0,
+      "output_dir": "out/train",
+      "sample_packing": false,
+      "seed": 42,
+      "sequence_len": 2048,
+      "warmup_steps": 0,
+      "weight_decay": 0.0
+    }
+  },
+  "notes": [],
+  "outputs": [
+    {
+      "kind": "adapter",
+      "path": "out/train/adapter_model.safetensors"
+    },
+    {
+      "kind": "gguf",
+      "path": "out/gguf/model-q4_k_m.gguf"
+    }
+  ],
+  "steps": [
+    {
+      "argv": [
+        "axolotl",
+        "train",
+        "config/axolotl.yaml"
+      ],
+      "name": "train"
+    },
+    {
+      "argv": [
+        "axolotl",
+        "merge-lora",
+        "config/axolotl.yaml",
+        "--lora-model-dir",
+        "out/train"
+      ],
+      "name": "merge"
+    },
+    {
+      "argv": [
+        "python3",
+        "$LLAMA_CPP_DIR/convert_hf_to_gguf.py",
+        "out/train/merged",
+        "--outfile",
+        "out/gguf/model-f16.gguf",
+        "--outtype",
+        "f16"
+      ],
+      "name": "gguf-f16"
+    },
+    {
+      "argv": [
+        "$LLAMA_CPP_DIR/llama-quantize",
+        "out/gguf/model-f16.gguf",
+        "out/gguf/model-q4_k_m.gguf",
+        "Q4_K_M"
+      ],
+      "name": "gguf-q4_k_m"
+    }
+  ]
+}

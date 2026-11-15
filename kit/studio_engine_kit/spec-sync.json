@@ -1,0 +1,47 @@
+{
+  "_about": "sha256 of each contract file copied from the platform's services/studio-spec. Refresh with tools/sync_spec.py; checked by tests/conformance/test_spec_sync.py.",
+  "source": "services/studio-spec",
+  "platform_commit": "2f8b9e09bf23a4d967a7bdf0fa3db79573be098d",
+  "files": {
+    "engines.json": {
+      "copy": "kit/studio_engine_kit/engines.json",
+      "sha256": "7701d91be2970c470559db1c9e5d8c7bf85069aae55fd2b538eefa2e61904760"
+    },
+    "fixtures/fit-table.json": {
+      "copy": "tests/conformance/fixtures/fit-table.json",
+      "sha256": "9d42359b2ba93552f19489f36f9e7cd2d1d679d75258ce88b4c5a95a9fd52353"
+    },
+    "fixtures/invalid-dataset.json": {
+      "copy": "tests/conformance/fixtures/invalid-dataset.json",
+      "sha256": "979613896fba0d88325a9adc657367730ad9faaceed2ce8316cd4902a4af250c"
+    },
+    "fixtures/invalid-engine.json": {
+      "copy": "tests/conformance/fixtures/invalid-engine.json",
+      "sha256": "a8a973027d4d0c209a70fb81e991cd07c6ce10c134c78f6d9cfae41a756904bb"
+    },
+    "fixtures/invalid-method-engine.json": {
+      "copy": "tests/conformance/fixtures/invalid-method-engine.json",
+      "sha256": "1d6fef08c29b39c26026030deda9c2d5936f80c2f1acc92ee4cdc686ce9f8529"
+    },
+    "fixtures/invalid-method.json": {
+      "copy": "tests/conformance/fixtures/invalid-method.json",
+      "sha256": "355bf1ade0408c1b2d205b4ab5be283ec33ba1381963204fd2334a6379f1a361"
+    },
+    "fixtures/invalid-publish.json": {
+      "copy": "tests/conformance/fixtures/invalid-publish.json",
+      "sha256": "dc1a1e19bb59ab58da47e7ab8d9d3239d780d6dde73d5aa4b2afcc3f5d96c892"
+    },
+    "fixtures/invalid-rented.json": {
+      "copy": "tests/conformance/fixtures/invalid-rented.json",
+      "sha256": "1ac5274fec4d8e46df71e24a774852a6fdbe9e153bd7a3f9f2b1371484b0b715"
+    },
+    "fixtures/lora-valid-local.json": {
+      "copy": "tests/conformance/fixtures/lora-valid-local.json",
+      "sha256": "7c3a527f6ed1f6a7d97360fa40f9f7fa24fff64a338476a9f6e6c2d45ae22664"
+    },
+    "fixtures/lora-valid.json": {
+      "copy": "tests/conformance/fixtures/lora-valid.json",
+      "sha256": "5ad05dad5e264bc528c029e5777e576d293f8b2250141d65fb7f92ae802b47cd"
+    }
+  }
+}

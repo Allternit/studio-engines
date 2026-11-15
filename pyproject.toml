@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Allternit LLC
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "studio-engines"
+version = "0.1.0"
+description = "Engine kit and adapters for Freeweights Studio (Engine API v1). Not published."
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+# No run-time dependencies: the kit is standard library only. Upstream engines
+# are installed unmodified, each in its own virtualenv, never as a dependency.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7", "pyyaml>=6"]
+
+[tool.setuptools.packages.find]
+where = ["kit", "adapters"]
+
+[tool.setuptools.package-data]
+studio_engine_kit = ["engines.json"]

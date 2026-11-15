@@ -1,0 +1,69 @@
+{
+  "files": {
+    "config/unsloth.yaml": {
+      "data": {
+        "format_type": "conversational",
+        "local_dataset": [
+          "/home/studio/data/train.jsonl"
+        ]
+      },
+      "lora": {
+        "lora_alpha": 32,
+        "lora_dropout": 0.0,
+        "lora_r": 16,
+        "target_modules": "q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj"
+      },
+      "model": "freeweights/qwen2.5-0.5b-instruct",
+      "training": {
+        "batch_size": 2,
+        "gradient_accumulation_steps": 4,
+        "gradient_checkpointing": "none",
+        "learning_rate": 0.0002,
+        "load_in_4bit": false,
+        "max_seq_length": 2048,
+        "max_steps": 0,
+        "num_epochs": 1,
+        "output_dir": "out/train",
+        "random_seed": 42,
+        "training_type": "lora",
+        "warmup_steps": 0,
+        "weight_decay": 0.0
+      }
+    }
+  },
+  "notes": [],
+  "outputs": [
+    {
+      "kind": "adapter",
+      "path": "out/train"
+    },
+    {
+      "kind": "gguf",
+      "path": "out/gguf/q4_k_m/*.gguf"
+    }
+  ],
+  "steps": [
+    {
+      "argv": [
+        "unsloth",
+        "train",
+        "--config",
+        "config/unsloth.yaml"
+      ],
+      "name": "train"
+    },
+    {
+      "argv": [
+        "unsloth",
+        "export",
+        "out/train",
+        "out/gguf/q4_k_m",
+        "--format",
+        "gguf",
+        "--quantization",
+        "q4_k_m"
+      ],
+      "name": "gguf-q4_k_m"
+    }
+  ]
+}
