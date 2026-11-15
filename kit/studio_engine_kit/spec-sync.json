@@ -1,15 +1,15 @@
 {
   "_about": "sha256 of each contract file copied from the platform's services/studio-spec. Refresh with tools/sync_spec.py; checked by tests/conformance/test_spec_sync.py.",
   "source": "services/studio-spec",
-  "platform_commit": "2f8b9e09bf23a4d967a7bdf0fa3db79573be098d",
+  "platform_commit": "d246e26cba5663bce73710ec4a05ec87bb9efe9b",
   "files": {
     "engines.json": {
       "copy": "kit/studio_engine_kit/engines.json",
-      "sha256": "7701d91be2970c470559db1c9e5d8c7bf85069aae55fd2b538eefa2e61904760"
+      "sha256": "3c93ca1e9b2203437588948724251d7746f832f7695b826745d1c363ccf38afb"
     },
     "fixtures/fit-table.json": {
       "copy": "tests/conformance/fixtures/fit-table.json",
-      "sha256": "9d42359b2ba93552f19489f36f9e7cd2d1d679d75258ce88b4c5a95a9fd52353"
+      "sha256": "dbb263837ba74f694763c6c4d15682b35518efb79c9d0c28ad793737098b298f"
     },
     "fixtures/invalid-dataset.json": {
       "copy": "tests/conformance/fixtures/invalid-dataset.json",
