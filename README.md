@@ -18,7 +18,6 @@ by Allternit with these adapters on any of these computers.
 ```
 kit/studio_engine_kit/        Engine API v1 server, job state machine, spec checks, fit (hardware) checks
 adapters/studio_engine_adapters/
-    unsloth_upstream.py       unsloth train --config / unsloth export      (unmodified, separate process)
     axolotl.py                axolotl train / merge-lora                   (YAML)
     llama_factory.py          llamafactory-cli train / export              (YAML + dataset_info.json)
     torchtune.py              tune run <recipe> --config                   (recipe config)
@@ -35,7 +34,6 @@ The hardware ids come from the contract: `apple-silicon`, `cuda-linux`,
 
 | Engine | Upstream pin | Licence | Runs on | Methods | Status |
 |---|---|---|---|---|---|
-| unsloth-upstream | unsloth 2026.11.4 | AGPL-3.0 (CLI) | cuda-linux, cuda-windows, xpu-linux, xpu-windows | lora, qlora (no DPO in `unsloth train`) | Not yet tested by Allternit on this hardware |
 | axolotl | axolotl 0.21.1 | Apache-2.0 | cuda-linux | lora, qlora, full, dpo | Not yet tested by Allternit on this hardware |
 | llama-factory | llamafactory 0.9.5 | Apache-2.0 | cuda-linux, cuda-windows | lora, qlora, full, dpo | Not yet tested by Allternit on this hardware |
 | torchtune | torchtune 0.6.1 | BSD-3-Clause | apple-silicon, cuda-linux, rocm-linux, xpu-linux | lora, qlora (Llama 3.2 bases), full, dpo | Not yet tested by Allternit on this hardware. Unmaintained upstream: 0.6.1 is the last release |
@@ -121,9 +119,11 @@ python3 -m pytest -q
 The kit, adapters, tests and tools are Apache-2.0 (`LICENSE`, `NOTICE`). **Each
 upstream engine keeps its own licence and is installed unmodified at the pinned
 version in `pins.json`**: nothing from an engine is copied, imported or patched
-here. The Unsloth boundary is the process and the file interface, and
-`tools/spdx_gate.py` fails if an Unsloth package is imported or listed as a
-dependency.
+here. No engine may be under AGPL or LGPL, even behind the process boundary:
+Unsloth was removed as an engine on 2026-11-15 because its CLI carries AGPL-3.0
+headers (Allternit's own trainer, allternit-tune, covers LoRA, QLoRA and GGUF).
+`tools/spdx_gate.py` still fails if an Unsloth package is imported or listed as
+a dependency.
 
 ## Tests
 
@@ -134,6 +134,6 @@ UPDATE_GOLDEN=1 .venv/bin/pytest tests/conformance/test_golden.py   # after a de
 python3 tools/spdx_gate.py                        # licence gate
 ```
 
-No real training run is part of the tests. Output locations such as Unsloth's
-adapter folder and Axolotl's merge folder are the likeliest to need adjustment
+No real training run is part of the tests. Output locations such as Axolotl's
+merge folder and LLaMA-Factory's export folder are the likeliest to need adjustment
 after the first run on real hardware.

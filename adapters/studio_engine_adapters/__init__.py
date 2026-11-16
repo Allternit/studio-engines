@@ -9,7 +9,6 @@ import importlib
 from typing import Dict
 
 ADAPTERS: Dict[str, str] = {
-    "unsloth-upstream": "studio_engine_adapters.unsloth_upstream",
     "axolotl": "studio_engine_adapters.axolotl",
     "llama-factory": "studio_engine_adapters.llama_factory",
     "torchtune": "studio_engine_adapters.torchtune",
