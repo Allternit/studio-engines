@@ -2,12 +2,6 @@
   "checked_on": "2026-11-15",
   "how": "PyPI JSON API (https://pypi.org/pypi/<package>/json): info.version is the newest non-pre-release upload. Wheel and sdist sha256 recorded from the same response. GitHub release tags were not cross-checked. Entry points, config schemas and CLI options used by the adapters were read from the pinned wheels (downloaded with pip download --no-deps, never installed).",
   "engines": {
-    "unsloth-upstream": {
-      "package": "unsloth", "version": "2026.11.4", "released": "2026-11-11",
-      "wheel_sha256": "9eeac117bf8df1544cea667432094826e813c21cc94cb9b0649d58a2a6ac6485",
-      "python": ">=3.9,<3.15", "cli": "unsloth train --config / unsloth export",
-      "license": "Apache-2.0 per package metadata; the unsloth_cli module (the commands the adapter runs) carries AGPL-3.0-only headers. engines.json lists AGPL-3.0. Treated as AGPL: separate process only."
-    },
     "axolotl": {
       "package": "axolotl", "version": "0.21.1", "released": "2026-10-27",
       "wheel_sha256": "3c0af0b1e381617c0df7c97a456ebccb4f1746116e5419c6601d9d15507c10d2",

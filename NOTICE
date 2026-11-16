@@ -9,11 +9,11 @@ It does not bundle, import, link or modify any training engine. Each adapter
 writes a config file and starts the engine's own command line as a separate
 process in the engine's own virtualenv. The engines are installed unmodified at
 the versions in pins.json, each under its own licence:
-  Unsloth (unsloth)      Apache-2.0 core; unsloth_cli and studio files AGPL-3.0
-                         (treated as AGPL-3.0: process boundary only)
   Axolotl                Apache-2.0
   LLaMA-Factory          Apache-2.0
   torchtune              BSD-3-Clause
+No engine here is under AGPL or LGPL, even as a separate process. Unsloth was
+removed as an engine on 2026-11-15 because its CLI carries AGPL-3.0 headers.
 tools/spdx_gate.py fails when any file here imports the Unsloth packages or lists
 them as a dependency, or lacks a permissive SPDX header.
 
@@ -25,6 +25,6 @@ copies of the Freeweights Studio contract (Allternit platform repository,
 services/studio-spec, Apache-2.0, same owner). kit/studio_engine_kit/spec-sync.json
 records the source commit and the sha256 of each copy.
 
-Unsloth, Axolotl, LLaMA-Factory, torchtune, llama.cpp, PyTorch, MLX and NVIDIA
+Axolotl, LLaMA-Factory, torchtune, llama.cpp, PyTorch, MLX and NVIDIA
 are names of their owners' projects and products. They are used here only to
 say which upstream program an adapter starts; no endorsement is implied.

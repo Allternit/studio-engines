@@ -14,7 +14,6 @@ EXPECTED = {
     "invalid-publish": "publish_not_available",
     "invalid-engine": "unknown_engine",
     "invalid-method": "unknown_method",
-    "invalid-method-engine": "unknown_method",
     "invalid-dataset": "invalid_dataset",
 }
 

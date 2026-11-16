@@ -34,7 +34,7 @@ def test_engine_card_matches_the_registry(api: Client, engine: str):
     entry = load_catalog()[engine]
     assert status == 200
     assert card["id"] == engine and card["install_state"] == "installed"
-    assert card["process"] == "separate_process" and card["published"] is False
+    assert card["process"] == "separate_process" and card["published"] is entry["published"] is True
     assert card["license"] == entry["license"] and card["hardware"] == entry["hardware"]
     assert card["version"] == load(engine).pin == entry["version"]
     assert card["methods"] == entry["methods"] and card.get("notes") == entry.get("notes")
@@ -93,7 +93,7 @@ def test_each_registry_method_is_translated_or_refused_plainly(api: Client, engi
     if method == "dpo":
         over["dataset__format"] = "dpo"
     status, body = api.post("/v1/jobs", spec_for(engine, **over))
-    if method not in load_catalog()[engine]["methods"]:      # e.g. dpo on unsloth-upstream
+    if method not in load_catalog()[engine]["methods"]:
         assert status == 422 and body["error"] == "unknown_method" and body["message"]
         return
     assert status == 201, body
