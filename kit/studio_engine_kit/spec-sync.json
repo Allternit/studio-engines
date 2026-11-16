@@ -1,15 +1,15 @@
 {
   "_about": "sha256 of each contract file copied from the platform's services/studio-spec. Refresh with tools/sync_spec.py; checked by tests/conformance/test_spec_sync.py.",
   "source": "services/studio-spec",
-  "platform_commit": "d246e26cba5663bce73710ec4a05ec87bb9efe9b",
+  "platform_commit": "899b4133d76d5d56f501cb751e0a984f80f2b91b",
   "files": {
     "engines.json": {
       "copy": "kit/studio_engine_kit/engines.json",
-      "sha256": "3c93ca1e9b2203437588948724251d7746f832f7695b826745d1c363ccf38afb"
+      "sha256": "2ba29842a76dcc28d36af13ed6a8431ff1c5dec310940dda77fbc8067ff8543c"
     },
     "fixtures/fit-table.json": {
       "copy": "tests/conformance/fixtures/fit-table.json",
-      "sha256": "dbb263837ba74f694763c6c4d15682b35518efb79c9d0c28ad793737098b298f"
+      "sha256": "7453704669a0ebf1dc04e379673bbbb8dde914c7edd8ffec3e38fc2c969e6779"
     },
     "fixtures/invalid-dataset.json": {
       "copy": "tests/conformance/fixtures/invalid-dataset.json",
@@ -18,10 +18,6 @@
     "fixtures/invalid-engine.json": {
       "copy": "tests/conformance/fixtures/invalid-engine.json",
       "sha256": "a8a973027d4d0c209a70fb81e991cd07c6ce10c134c78f6d9cfae41a756904bb"
-    },
-    "fixtures/invalid-method-engine.json": {
-      "copy": "tests/conformance/fixtures/invalid-method-engine.json",
-      "sha256": "1d6fef08c29b39c26026030deda9c2d5936f80c2f1acc92ee4cdc686ce9f8529"
     },
     "fixtures/invalid-method.json": {
       "copy": "tests/conformance/fixtures/invalid-method.json",

@@ -58,15 +58,7 @@ def test_generated_yaml_is_valid_and_mentions_the_spec_values(engine: str):
         assert value in text or "/home/studio/data/train.jsonl" in text, value
 
 
-def test_unsloth_adapter_uses_upstreams_own_commands_only():
-    got = built("unsloth-upstream")
-    assert got["steps"][0]["argv"] == ["unsloth", "train", "--config", "config/unsloth.yaml"]
-    cfg = got["files"]["config/unsloth.yaml"]
-    assert cfg["training"]["load_in_4bit"] is False and cfg["lora"]["lora_r"] == 16
-
-
 def test_qlora_turns_on_four_bit_everywhere():
-    assert built("unsloth-upstream", method="qlora")["files"]["config/unsloth.yaml"]["training"]["load_in_4bit"]
     assert built("axolotl", method="qlora")["files"]["config/axolotl.yaml"]["adapter"] == "qlora"
     assert built("llama-factory", method="qlora")["files"]["config/train.yaml"]["quantization_bit"] == 4
     assert "qlora_" in built("torchtune", method="qlora", base__repo="meta-llama/Llama-3.2-1B")["files"][
